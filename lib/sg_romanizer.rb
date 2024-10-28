@@ -21,10 +21,10 @@ class SgRomanizer
   def romanize(arabic)
     roman = +''
 
-    ARABIC_ROMAN.each_key do |unit|
-      next if (i = arabic - unit).negative?
+    ARABIC_ROMAN.each_pair do |a, r|
+      next if (i = arabic - a).negative?
 
-      roman << ARABIC_ROMAN[unit]
+      roman << r
       arabic = i
       redo
     end
@@ -35,11 +35,11 @@ class SgRomanizer
   def deromanize(roman)
     arabic = 0
 
-    ROMAN_ARABIC.each_key do |unit|
-      next unless roman.start_with?(unit)
+    ROMAN_ARABIC.each_pair do |r, a|
+      next unless roman.start_with?(r)
 
-      arabic += ROMAN_ARABIC[unit]
-      roman = roman.delete_prefix(unit)
+      arabic += a
+      roman = roman.delete_prefix(r)
       redo
     end
 
